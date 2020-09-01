@@ -40,7 +40,7 @@ else
                 --incremental-basedir=${BASE_DIR} \
                 --user=mariabackup --password=some_password >> ${LOG} 2>&1
 
-            printf "[`date --rfc-3339=seconds --utc`] INFO - Completed in ${SECONDS} seconds\n" >> ${TARGET_DIR}my_output.log
+            printf "[`date --rfc-3339=seconds --utc`] INFO - Completed in ${SECONDS} seconds\n" >> ${LOG}
 
             printf ${TARGET_DIR} > ${MONTH_DIR}/last_completed_backup
             exit 0
