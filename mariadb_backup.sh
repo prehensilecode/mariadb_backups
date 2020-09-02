@@ -44,7 +44,7 @@ TARGET_DIR=${MONTH_DIR}/$( date +%d-%H%M-${tvalue} )
 MARIABACKUP_OPTS="--backup --target-dir=${TARGET_DIR} --user=mariabackup --password=some_password"
 
 LOG_DIR=/var/log/mariabackup
-LOG=${LOG_DIR}/mariadb_backup_${tvalue}.log
+LOG=${LOG_DIR}/mariadb_backup.log
 
 if [[ -e ${TARGET_DIR} ]]
 then
@@ -59,7 +59,7 @@ else
 
         ${MARIABACKUP} ${MARIABACKUP_OPTS} >> ${LOG} 2>&1
 
-        printf "`date --rfc-3339=seconds --utc` - INFO - Completed in ${SECONDS} seconds\n" >> ${LOG}
+        printf "`date --rfc-3339=seconds --utc` - INFO - Full backup completed in ${SECONDS} seconds\n" >> ${LOG}
 
         printf ${TARGET_DIR} > ${MONTH_DIR}/last_completed_backup
         exit 0
@@ -73,7 +73,7 @@ else
 
             if [[ -z ${BASE_DIR} ]]
             then
-                printf "`date --rfc-3339=seconds --utc` - ERROR - Base dir is an empty string\n" >> ${LOG}
+                printf "`date --rfc-3339=seconds --utc` - ERROR - BASE_DIR is an empty string\n" >> ${LOG}
             else
                 mkdir -p ${TARGET_DIR}
 
@@ -82,7 +82,7 @@ else
                 ${MARIABACKUP} ${MARIABACKUP_OPTS} \
                     --incremental-basedir=${BASE_DIR}  >> ${LOG} 2>&1
 
-                printf "`date --rfc-3339=seconds --utc` - INFO - Completed in ${SECONDS} seconds\n" >> ${LOG}
+                printf "`date --rfc-3339=seconds --utc` - INFO - Incremental backup completed in ${SECONDS} seconds\n" >> ${LOG}
 
                 printf ${TARGET_DIR} > ${MONTH_DIR}/last_completed_backup
                 exit 0
