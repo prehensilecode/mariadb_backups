@@ -44,7 +44,7 @@ TARGET_DIR=${MONTH_DIR}/$( date +%d-%H%M-${tvalue} )
 MARIABACKUP_OPTS="--backup --target-dir=${TARGET_DIR} --user=mariabackup --password=some_password"
 
 LOG_DIR=/var/log/mariabackup
-LOG=${LOG_DIR}/mariadb_backup_full.log
+LOG=${LOG_DIR}/mariadb_backup_${tvalue}.log
 
 if [[ -e ${TARGET_DIR} ]]
 then
