@@ -48,7 +48,7 @@ LOG=${LOG_DIR}/mariadb_backup_${tvalue}.log
 
 if [[ -e ${TARGET_DIR} ]]
 then
-    printf "[`date --rfc-3339=seconds --utc`] ERROR - Directory ${TARGET_DIR} already exists\n" >> ${LOG}
+    printf "`date --rfc-3339=seconds --utc` - ERROR - Directory ${TARGET_DIR} already exists\n" >> ${LOG}
     exit 1
 else
     if [[ x${tvalue} = xfull ]]
@@ -59,7 +59,7 @@ else
 
         ${MARIABACKUP} ${MARIABACKUP_OPTS} >> ${LOG} 2>&1
 
-        printf "[`date --rfc-3339=seconds --utc`] INFO - Completed in ${SECONDS} seconds\n" >> ${LOG}
+        printf "`date --rfc-3339=seconds --utc` - INFO - Completed in ${SECONDS} seconds\n" >> ${LOG}
 
         printf ${TARGET_DIR} > ${MONTH_DIR}/last_completed_backup
         exit 0
@@ -73,7 +73,7 @@ else
 
             if [[ -z ${BASE_DIR} ]]
             then
-                printf "[`date --rfc-3339=seconds --utc`] ERROR - Base dir is an empty string\n" >> ${LOG}
+                printf "`date --rfc-3339=seconds --utc` - ERROR - Base dir is an empty string\n" >> ${LOG}
             else
                 mkdir -p ${TARGET_DIR}
 
@@ -82,13 +82,13 @@ else
                 ${MARIABACKUP} ${MARIABACKUP_OPTS} \
                     --incremental-basedir=${BASE_DIR}  >> ${LOG} 2>&1
 
-                printf "[`date --rfc-3339=seconds --utc`] INFO - Completed in ${SECONDS} seconds\n" >> ${LOG}
+                printf "`date --rfc-3339=seconds --utc` - INFO - Completed in ${SECONDS} seconds\n" >> ${LOG}
 
                 printf ${TARGET_DIR} > ${MONTH_DIR}/last_completed_backup
                 exit 0
             fi
         else
-            printf "[`date --rfc-3339=seconds --utc`] ERROR - No base dir for incremental backup\n" >> ${LOG}
+            printf "`date --rfc-3339=seconds --utc` - ERROR - No base dir for incremental backup\n" >> ${LOG}
             exit 3
         fi
     fi
