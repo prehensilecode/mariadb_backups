@@ -21,8 +21,6 @@ else
         case "$OPTION" in
             t)
                 tvalue="$OPTARG"
-                echo "The value provided is $OPTARG"
-                echo "tvalue = $tvalue"
                 ;;
             ?)
                 help
@@ -60,9 +58,9 @@ else
         SECONDS=0
 
         ${MARIABACKUP} ${MARIABACKUP_OPTS} >> ${LOG} 2>&1
-    
+
         printf "[`date --rfc-3339=seconds --utc`] INFO - Completed in ${SECONDS} seconds\n" >> ${LOG}
-    
+
         printf ${TARGET_DIR} > ${MONTH_DIR}/last_completed_backup
         exit 0
     elif [[ x${tvalue} = xincr ]]
