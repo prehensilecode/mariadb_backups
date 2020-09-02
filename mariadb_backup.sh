@@ -2,7 +2,7 @@
 ###
 ### MariaDB backup
 ###
-
+umask 077
 set -e
 set -u
 set -o pipefail
