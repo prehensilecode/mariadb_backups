@@ -36,10 +36,10 @@ MARIABACKUP=/bin/mariabackup
 BACKUP_BASE_DIR=/var/cache/mariabackup
 
 # delete backup directories older than 90 days
-find ${BACKUP_BASE_DIR}/* -type d -mmin +$((60*24*90)) -exec rm -rf {} \;
+find ${BACKUP_BASE_DIR} -type d -mmin +$((60*24*90)) -exec rm -rf {} \;
 
 MONTH_DIR=${BACKUP_BASE_DIR}/`date +%Y-%m`
-TARGET_DIR=${MONTH_DIR}/$( date +%d-%H%M-${tvalue} )
+TARGET_DIR=${MONTH_DIR}/$( date +%d-%H%M%S-${tvalue} )
 
 MARIABACKUP_OPTS="--backup --target-dir=${TARGET_DIR} --user=mariabackup --password=some_password"
 
